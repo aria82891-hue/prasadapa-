@@ -1,109 +1,338 @@
 <!DOCTYPE html>
-<html lang=”id”>
+<html lang="id">
 <head>
-<meta charset=”UTF-8”>
-<meta name=”viewport” content=”width=device-width, initial-scale=1.0, maximum-scale=1.0”>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>PRASADAPA — Pramuka Satria Dasa Pusaka</title>
 <style>
 :root{--red:#a61b1b;--red2:#7f1111;--gold:#e7b83d;--gold2:#c99518;--cream:#fffaf0;--ink:#251a15;--muted:#756b63;--green:#16733a;--orange:#b86600;--danger:#a61b1b;--white:#fff}
 *{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:linear-gradient(135deg,#f7f0e5,#fff 55%,#f3e8d6);color:var(--ink);min-height:100vh}
-Button,input,textarea{font:inherit}button{cursor:pointer}.app{max-width:1100px;margin:auto;padding:18px}
+button,input,textarea{font:inherit}button{cursor:pointer}.app{max-width:1100px;margin:auto;padding:18px}
 .hero{background:linear-gradient(135deg,var(--red2),var(--red));color:white;border-radius:24px;padding:20px 22px;box-shadow:0 14px 35px #4b160022;position:relative;overflow:hidden}
-.hero:after{content:””;position:absolute;width:240px;height:240px;border:2px solid #ffffff22;border-radius:50%;right:-70px;top:-90px}.brand{display:flex;align-items:center;gap:16px;position:relative;z-index:1}.logo{width:88px;height:88px;object-fit:contain;background:#fff;border-radius:18px;padding:5px}.brand h1{margin:0;font-size:30px;letter-spacing:2px}.brand h2{margin:2px 0 0;font-size:16px;font-weight:700}.brand p{margin:4px 0 0;color:#ffe7a0;font-size:14px}.card{background:#fff;border:1px solid #eadfce;border-radius:22px;padding:22px;margin-top:18px;box-shadow:0 10px 30px #4b16000e}.section-title{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-bottom:15px}.section-title h2{margin:0}.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:7px 12px;background:#f5ead5;color:var(--red2);font-size:12px;font-weight:800}.profile{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:12px}.field{background:#faf6ef;border:1px solid #eadfce;border-radius:15px;padding:12px}.field small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;font-weight:800}.field strong{display:block;margin-top:3px;font-size:16px}.login-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.input{width:100%;padding:13px;border:1px solid #d9cdbb;border-radius:12px;outline:none;background:#fff}.input:focus{border-color:var(--gold2);box-shadow:0 0 0 3px #e7b83d33}.btn{border:0;border-radius:12px;padding:12px 16px;font-weight:800;background:var(--red);color:#fff;transition:.2s}.btn:hover{transform:translateY(-1px);filter:brightness(1.05)}.btn.gold{background:var(--gold);color:#3b2800}.btn.ghost{background:#f4ede2;color:var(--red2)}.btn.green{background:var(--green)}.btn.danger{background:var(--danger)}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}.sku-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.sku{border:1px solid #e8ddcc;border-radius:18px;padding:17px;background:linear-gradient(180deg,#fff,#fcf7ee);text-align:left;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;transition:.2s}.sku:hover{transform:translateY(-3px);box-shadow:0 10px 25px #3b170012;border-color:#d5b86d}.sku .num{font-size:12px;font-weight:900;color:var(--red)}.sku h3{margin:6px 0;font-size:17px}.sku p{margin:0;color:var(--muted);font-size:12px}.status{margin-top:10px;font-size:12px;font-weight:900}.status.pass{color:var(--green)}.status.fail{color:var(--danger)}.status.new{color:#8b6a1d}.hidden{display:none!important}.exam-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.warning{background:#fff3d7;border:1px solid #e6c56c;color:#704e00;padding:12px 14px;border-radius:14px;font-size:13px;margin:15px 0}.progress{height:9px;background:#eee2d1;border-radius:99px;overflow:hidden;margin:12px 0 18px}.progress>div{height:100%;background:linear-gradient(90deg,var(--red),var(--gold));transition:.2s}.question{border:1px solid #eadfce;border-radius:18px;padding:18px;margin:12px 0;background:#fffdf9}.question h3{margin:0 0 8px;font-size:14px;color:var(--red2)}.question p{margin:0 0 12px;font-weight:650;line-height:1.6}.answer{min-height:140px;resize:vertical;width:100%;padding:13px;border:1px solid #d9cdbb;border-radius:12px}.exam-actions{display:flex;justify-content:space-between;gap:10px;margin-top:16px}.score{font-size:68px;font-weight:950;color:var(--red);line-height:1}.result{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px}.resultbox{border-radius:20px;padding:25px;text-align:center;background:#fff6e5;border:1px solid #ead3a1}.resultbox.pass{background:#edf9f1;border-color:#9bd2ae}.resultbox.fail{background:#fff0f0;border-color:#e2aaaa}.eval{background:#faf6ef;border:1px solid #eadfce;border-radius:18px;padding:18px}.eval li{margin:9px 0}.cert{background:#fffdf7;border:8px double var(--red);padding:30px;text-align:center;position:relative;overflow:hidden}.cert img{width:90px;height:90px;object-fit:contain}.cert h2{color:var(--red2);letter-spacing:2px}.cert .name{font-size:26px;font-weight:950;color:var(--red);margin:15px 0}.cert .line{border-top:1px solid #d4b878;margin:18px 0}.small{font-size:12px;color:var(--muted)}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#251a15;color:white;padding:12px 18px;border-radius:999px;display:none;z-index:99}.footer{text-align:center;color:#8a7d70;font-size:11px;padding:22px}
+.hero:after{content:"";position:absolute;width:240px;height:240px;border:2px solid #ffffff22;border-radius:50%;right:-70px;top:-90px}.brand{display:flex;align-items:center;gap:16px;position:relative;z-index:1}.logo{width:88px;height:88px;object-fit:contain;background:#fff;border-radius:18px;padding:5px}.brand h1{margin:0;font-size:30px;letter-spacing:2px}.brand h2{margin:2px 0 0;font-size:16px;font-weight:700}.brand p{margin:4px 0 0;color:#ffe7a0;font-size:14px}.card{background:#fff;border:1px solid #eadfce;border-radius:22px;padding:22px;margin-top:18px;box-shadow:0 10px 30px #4b16000e}.section-title{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-bottom:15px}.section-title h2{margin:0}.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:7px 12px;background:#f5ead5;color:var(--red2);font-size:12px;font-weight:800}.profile{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:12px}.field{background:#faf6ef;border:1px solid #eadfce;border-radius:15px;padding:12px}.field small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;font-weight:800}.field strong{display:block;margin-top:3px;font-size:16px}.login-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.input{width:100%;padding:13px;border:1px solid #d9cdbb;border-radius:12px;outline:none;background:#fff}.input:focus{border-color:var(--gold2);box-shadow:0 0 0 3px #e7b83d33}.btn{border:0;border-radius:12px;padding:12px 16px;font-weight:800;background:var(--red);color:#fff;transition:.2s}.btn:hover{transform:translateY(-1px);filter:brightness(1.05)}.btn.gold{background:var(--gold);color:#3b2800}.btn.ghost{background:#f4ede2;color:var(--red2)}.btn.green{background:var(--green)}.btn.danger{background:var(--danger)}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}.sku-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.sku{border:1px solid #e8ddcc;border-radius:18px;padding:17px;background:linear-gradient(180deg,#fff,#fcf7ee);text-align:left;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;transition:.2s}.sku:hover{transform:translateY(-3px);box-shadow:0 10px 25px #3b170012;border-color:#d5b86d}.sku .num{font-size:12px;font-weight:900;color:var(--red)}.sku h3{margin:6px 0;font-size:17px}.sku p{margin:0;color:var(--muted);font-size:12px}.status{margin-top:10px;font-size:12px;font-weight:900}.status.pass{color:var(--green)}.status.fail{color:var(--danger)}.status.new{color:#8b6a1d}.hidden{display:none!important}.exam-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.warning{background:#fff3d7;border:1px solid #e6c56c;color:#704e00;padding:12px 14px;border-radius:14px;font-size:13px;margin:15px 0}.progress{height:9px;background:#eee2d1;border-radius:99px;overflow:hidden;margin:12px 0 18px}.progress>div{height:100%;background:linear-gradient(90deg,var(--red),var(--gold));transition:.2s}.question{border:1px solid #eadfce;border-radius:18px;padding:18px;margin:12px 0;background:#fffdf9}.question h3{margin:0 0 8px;font-size:14px;color:var(--red2)}.question p{margin:0 0 12px;font-weight:650;line-height:1.6}.answer{min-height:140px;resize:vertical;width:100%;padding:13px;border:1px solid #d9cdbb;border-radius:12px}.exam-actions{display:flex;justify-content:space-between;gap:10px;margin-top:16px}.score{font-size:68px;font-weight:950;color:var(--red);line-height:1}.result{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px}.resultbox{border-radius:20px;padding:25px;text-align:center;background:#fff6e5;border:1px solid #ead3a1}.resultbox.pass{background:#edf9f1;border-color:#9bd2ae}.resultbox.fail{background:#fff0f0;border-color:#e2aaaa}.eval{background:#faf6ef;border:1px solid #eadfce;border-radius:18px;padding:18px}.eval li{margin:9px 0}.cert{background:#fffdf7;border:8px double var(--red);padding:30px;text-align:center;position:relative;overflow:hidden}.cert img{width:90px;height:90px;object-fit:contain}.cert h2{color:var(--red2);letter-spacing:2px}.cert .name{font-size:26px;font-weight:950;color:var(--red);margin:15px 0}.cert .line{border-top:1px solid #d4b878;margin:18px 0}.small{font-size:12px;color:var(--muted)}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#251a15;color:white;padding:12px 18px;border-radius:999px;display:none;z-index:99}.footer{text-align:center;color:#8a7d70;font-size:11px;padding:22px}
 @media(max-width:800px){.sku-grid{grid-template-columns:repeat(2,1fr)}.profile,.login-grid,.result{grid-template-columns:1fr}.brand h1{font-size:24px}.logo{width:70px;height:70px}}
 @media(max-width:500px){.app{padding:10px}.hero{border-radius:18px;padding:15px}.sku-grid{grid-template-columns:1fr 1fr;gap:9px}.sku{padding:13px;min-height:145px}.brand{gap:10px}.brand h1{font-size:20px}.brand h2{font-size:13px}.brand p{font-size:11px}.card{padding:15px;border-radius:18px}.score{font-size:55px}}
 </style>
 </head>
 <body>
-<div class=”app”>
-<header class=”hero”>
- <div class=”brand”>
-  <img class=”logo” id=”brandLogo” alt=”Logo Satria Dasa Pusaka”>
+<div class="app">
+<header class="hero">
+ <div class="brand">
+  <img class="logo" id="brandLogo" alt="Logo Satria Dasa Pusaka">
   <div><h1>PRASADAPA</h1><h2>Pramuka Satria Dasa Pusaka</h2><p>Gudep 01.031–01.032</p></div>
  </div>
 </header>
 
-<section id=”loginPage” class=”card”>
- <div class=”section-title”><div><h2>Selamat Datang</h2><span class=”small”>Masukkan identitas untuk membuka dashboard SKU.</span></div><span class=”pill”>PENGGALANG</span></div>
- <div class=”login-grid”>
+<section id="loginPage" class="card">
+ <div class="section-title"><div><h2>Selamat Datang</h2><span class="small">Masukkan identitas untuk membuka dashboard SKU.</span></div><span class="pill">PENGGALANG</span></div>
+ <div class="login-grid">
   <div>
-   <label>Nama Lengkap</label><input id=”nameInput” class=”input” placeholder=”Nama lengkap peserta”>
-   <br><br><label>Kelas</label><input id=”classInput” class=”input” placeholder=”Contoh: VII A”>
+   <label>Nama Lengkap</label><input id="nameInput" class="input" placeholder="Nama lengkap peserta">
+   <br><br><label>Kelas</label><input id="classInput" class="input" placeholder="Contoh: VII A">
    <br><br><label>Tingkat SKU</label>
-   <select id=”levelInput” class=”input”><option value=”RAKIT”>Penggalang Rakit</option><option value=”TERAP”>Penggalang Terap</option></select>
-   <br><br><button class=”btn” onclick=”enterDashboard()”>Masuk ke Dashboard</button>
+   <select id="levelInput" class="input"><option value="RAKIT">Penggalang Rakit</option><option value="TERAP">Penggalang Terap</option></select>
+   <br><br><button class="btn" onclick="enterDashboard()">Masuk ke Dashboard</button>
   </div>
-  <div class=”field”>
+  <div class="field">
    <strong>Aturan Uji SKU</strong>
-   <p class=”small”>Setiap SKU berisi 3 soal uraian. Nilai 80–100 dinyatakan LULUS. Nilai 0–79 harus mengulang.</p>
-   <p class=”small”>Saat ujian berlangsung, peserta tidak dapat berpindah ke dashboard. Jika halaman ditinggalkan atau dimuat ulang, ujian dianggap harus diulang.</p>
+   <p class="small">Setiap SKU berisi 3 soal uraian. Nilai 80–100 dinyatakan LULUS. Nilai 0–79 harus mengulang.</p>
+   <p class="small">Saat ujian berlangsung, peserta tidak dapat berpindah ke dashboard. Jika halaman ditinggalkan atau dimuat ulang, ujian dianggap harus diulang.</p>
   </div>
  </div>
 </section>
 
-<section id=”dashboardPage” class=”hidden”>
- <div class=”card”>
-  <div class=”section-title”><div><h2>Profil Peserta</h2><span class=”small”>Data yang digunakan pada hasil dan sertifikat.</span></div><button class=”btn ghost” onclick=”logoutDashboard()”>Keluar</button></div>
-  <div class=”profile”>
-   <div class=”field”><small>Nama</small><strong id=”profileName”>-</strong></div>
-   <div class=”field”><small>Kelas</small><strong id=”profileClass”>-</strong></div>
-   <div class=”field”><small>Tingkat</small><strong id=”profileLevel”>-</strong></div>
+<section id="dashboardPage" class="hidden">
+ <div class="card">
+  <div class="section-title"><div><h2>Profil Peserta</h2><span class="small">Data yang digunakan pada hasil dan sertifikat.</span></div><button class="btn ghost" onclick="logoutDashboard()">Keluar</button></div>
+  <div class="profile">
+   <div class="field"><small>Nama</small><strong id="profileName">-</strong></div>
+   <div class="field"><small>Kelas</small><strong id="profileClass">-</strong></div>
+   <div class="field"><small>Tingkat</small><strong id="profileLevel">-</strong></div>
   </div>
  </div>
- <div class=”card”>
-  <div class=”section-title”><div><h2>Daftar SKU</h2><span class=”small”>Pilih nomor SKU untuk mengerjakan 3 soal uraian.</span></div><span class=”pill” id=”skuCount”>0 SKU</span></div>
-  <div id=”skuGrid” class=”sku-grid”></div>
+ <div class="card">
+  <div class="section-title"><div><h2>Daftar SKU</h2><span class="small">Pilih nomor SKU untuk mengerjakan 3 soal uraian.</span></div><span class="pill" id="skuCount">0 SKU</span></div>
+  <div id="skuGrid" class="sku-grid"></div>
  </div>
 </section>
 
-<section id=”examPage” class=”hidden card”>
- <div class=”exam-head”><div><span class=”pill” id=”examLevel”>-</span><h2 id=”examTitle” style=”margin:8px 0 0”>-</h2></div><span class=”pill” id=”qCounter”>1/3</span></div>
- <div class=”warning”><b>Mode ujian aktif.</b> Selesaikan dan kirim jawaban sebelum meninggalkan halaman. Jika halaman di-refresh/ditinggalkan saat ujian, percobaan ini akan dianggap harus diulang.</div>
- <div class=”progress”><div id=”progressBar” style=”width:33%”></div></div>
- <div id=”questions”></div>
- <div class=”exam-actions”><button class=”btn ghost” id=”prevBtn” onclick=”prevQuestion()”>Sebelumnya</button><button class=”btn” id=”nextBtn” onclick=”nextQuestion()”>Berikutnya</button></div>
- <div style=”margin-top:14px;text-align:right”><button class=”btn green” id=”submitBtn” onclick=”submitExam()”>Submit Jawaban & Nilai</button></div>
+<section id="examPage" class="hidden card">
+ <div class="exam-head"><div><span class="pill" id="examLevel">-</span><h2 id="examTitle" style="margin:8px 0 0">-</h2></div><span class="pill" id="qCounter">1/3</span></div>
+ <div class="warning"><b>Mode ujian aktif.</b> Selesaikan dan kirim jawaban sebelum meninggalkan halaman. Jika halaman di-refresh/ditinggalkan saat ujian, percobaan ini akan dianggap harus diulang.</div>
+ <div class="progress"><div id="progressBar" style="width:33%"></div></div>
+ <div id="questions"></div>
+ <div class="exam-actions"><button class="btn ghost" id="prevBtn" onclick="prevQuestion()">Sebelumnya</button><button class="btn" id="nextBtn" onclick="nextQuestion()">Berikutnya</button></div>
+ <div style="margin-top:14px;text-align:right"><button class="btn green" id="submitBtn" onclick="submitExam()">Submit Jawaban & Nilai</button></div>
 </section>
 
-<section id=”resultPage” class=”hidden card”>
- <div class=”section-title”><div><h2 id=”resultSku”>Hasil SKU</h2><span class=”small”>Hasil tersimpan di perangkat ini.</span></div><button class=”btn ghost” onclick=”backDashboard()”>Kembali ke Dashboard</button></div>
- <div class=”result”>
-  <div id=”resultBox” class=”resultbox”>
-   <div class=”small”>NILAI AKHIR</div><div class=”score” id=”score”>0</div><h2 id=”resultStatus”>-</h2><p id=”resultDesc”>-</p>
+<section id="resultPage" class="hidden card">
+ <div class="section-title"><div><h2 id="resultSku">Hasil SKU</h2><span class="small">Hasil tersimpan di perangkat ini.</span></div><button class="btn ghost" onclick="backDashboard()">Kembali ke Dashboard</button></div>
+ <div class="result">
+  <div id="resultBox" class="resultbox">
+   <div class="small">NILAI AKHIR</div><div class="score" id="score">0</div><h2 id="resultStatus">-</h2><p id="resultDesc">-</p>
   </div>
-  <div class=”eval”><h3>Evaluasi</h3><p class=”small”>Bagian yang masih kurang berdasarkan kriteria jawaban yang digunakan untuk penilaian otomatis:</p><ul id=”evalList”></ul></div>
+  <div class="eval"><h3>Evaluasi</h3><p class="small">Bagian yang masih kurang berdasarkan kriteria jawaban yang digunakan untuk penilaian otomatis:</p><ul id="evalList"></ul></div>
  </div>
- <div id=”certWrap” class=”hidden” style=”margin-top:18px”>
-  <div id=”certificate” class=”cert”>
-   <img id=”certLogo” alt=”Logo”>
+ <div id="certWrap" class="hidden" style="margin-top:18px">
+  <div id="certificate" class="cert">
+   <img id="certLogo" alt="Logo">
    <h2>SERTIFIKAT KELULUSAN SKU</h2><div>PRAMUKA SATRIA DASA PUSAKA</div><div>GUDEP 01.031–01.032</div>
-   <div class=”line”></div><div>Diberikan kepada</div><div class=”name” id=”certName”>-</div>
-   <div>Kelas <b id=”certClass”>-</b></div>
+   <div class="line"></div><div>Diberikan kepada</div><div class="name" id="certName">-</div>
+   <div>Kelas <b id="certClass">-</b></div>
    <p>Dinyatakan <b>LULUS</b> pada Pengujian Syarat Kecakapan Umum (SKU)</p>
-   <h3 id=”certLevel”>-</h3><p>SKU No. <b id=”certSku”>-</b></p>
-   <div class=”line”></div><div>Nilai: <b id=”certScore”>-</b></div><p class=”small”>Sertifikat dibuat secara digital melalui aplikasi PRASADAPA.</p>
+   <h3 id="certLevel">-</h3><p>SKU No. <b id="certSku">-</b></p>
+   <div class="line"></div><div>Nilai: <b id="certScore">-</b></div><p class="small">Sertifikat dibuat secara digital melalui aplikasi PRASADAPA.</p>
   </div>
-  <br><button class=”btn gold” style=”width:100%” onclick=”downloadCertificate()”>⬇ Unduh Sertifikat (PNG)</button>
+  <br><button class="btn gold" style="width:100%" onclick="downloadCertificate()">⬇ Unduh Sertifikat (PNG)</button>
  </div>
- <div id=”retryWrap” class=”hidden” style=”margin-top:18px”><button class=”btn danger” style=”width:100%” onclick=”retrySku()”>Ulangi SKU Ini</button></div>
+ <div id="retryWrap" class="hidden" style="margin-top:18px"><button class="btn danger" style="width:100%" onclick="retrySku()">Ulangi SKU Ini</button></div>
 </section>
-<div class=”footer”>PRASADAPA • Pramuka Satria Dasa Pusaka • Gudep 01.031–01.032</div>
+<div class="footer">PRASADAPA • Pramuka Satria Dasa Pusaka • Gudep 01.031–01.032</div>
 </div>
-<div id=”toast” class=”toast”></div>
-  …
-  <!—Kodingan tampilan web kamu yang lama di sini 
-  …
+<div id="toast" class="toast"></div>
+<!—Kodingan tampilan web kamu yang lama di sini
+<!—TARUH FORM NETLIFY DI SINI 
+  
 
-  <!—TARUH FORM NETLIFY DI SINI 
-  <form name=”sku-lulus” netlify netlify-honeypot=”bot-field” hidden>
-    <input type=”text” name=”nama” />
-    <input type=”text” name=”kelas” />
-    <input type=”number” name=”nilai” />
-  </form>
+
+<script>
+"use strict";
+
+const APP_KEY = "prasadapa_sku_v1";
+
+const state = {
+  profile: null,
+  currentSku: null,
+  currentQuestion: 0,
+  answers: ["", "", ""]
+};
+
+/*
+ * CATATAN:
+ * Bank soal dan mesin koreksi otomatis tidak terdapat di file Word sumber.
+ * Karena itu kode ini TIDAK membuat soal palsu. SKU akan menampilkan
+ * pemberitahuan bahwa bank soal perlu dimasukkan kembali.
+ */
+
+const SKU_DATA = {
+  RAKIT: [],
+  TERAP: []
+};
+
+const $ = (id) => document.getElementById(id);
+
+function showOnly(id) {
+  ["loginPage", "dashboardPage", "examPage", "resultPage"].forEach(page => {
+    const el = $(page);
+    if (el) el.classList.toggle("hidden", page !== id);
+  });
+}
+
+function toast(message) {
+  const el = $("toast");
+  if (!el) return;
+  el.textContent = message;
+  el.style.display = "block";
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(() => el.style.display = "none", 2600);
+}
+
+function enterDashboard() {
+  const name = $("nameInput")?.value.trim();
+  const className = $("classInput")?.value.trim();
+  const level = $("levelInput")?.value;
+
+  if (!name || !className || !level) {
+    toast("Nama, kelas, dan tingkat SKU wajib diisi.");
+    return;
+  }
+
+  state.profile = { name, className, level };
+  localStorage.setItem(APP_KEY + "_profile", JSON.stringify(state.profile));
+  renderProfile();
+  renderSku();
+  showOnly("dashboardPage");
+}
+
+function renderProfile() {
+  if (!state.profile) return;
+  $("profileName").textContent = state.profile.name;
+  $("profileClass").textContent = state.profile.className;
+  $("profileLevel").textContent =
+    state.profile.level === "TERAP" ? "Penggalang Terap" : "Penggalang Rakit";
+}
+
+function renderSku() {
+  const grid = $("skuGrid");
+  const level = state.profile?.level || "RAKIT";
+  const items = SKU_DATA[level] || [];
+
+  $("skuCount").textContent = items.length + " SKU";
+
+  if (!items.length) {
+    grid.innerHTML = `
+      <div class="field" style="grid-column:1/-1">
+        <strong>Bank soal belum tersedia di file ini.</strong>
+        <p class="small">
+          Tampilan dan fungsi dasar sudah diperbaiki, tetapi JavaScript bank soal
+          tidak ikut tersimpan di Document (25). Masukkan kembali data soal asli
+          agar ujian dapat digunakan.
+        </p>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = items.map((sku, index) => `
+    <button class="sku" type="button" onclick="startExam(${index})">
+      <div>
+        <div class="num">SKU ${escapeHtml(String(sku.number))}</div>
+        <h3>${escapeHtml(sku.title)}</h3>
+        <p>${escapeHtml(sku.description || "3 soal uraian")}</p>
+      </div>
+      <div class="status new">Belum dikerjakan</div>
+    </button>
+  `).join("");
+}
+
+function startExam(index) {
+  const level = state.profile?.level || "RAKIT";
+  const sku = SKU_DATA[level]?.[index];
+  if (!sku) {
+    toast("Data soal SKU belum tersedia.");
+    return;
+  }
+
+  state.currentSku = sku;
+  state.currentQuestion = 0;
+  state.answers = ["", "", ""];
+  $("examLevel").textContent = level === "TERAP" ? "PENGGALANG TERAP" : "PENGGALANG RAKIT";
+  $("examTitle").textContent = "SKU No. " + sku.number + " — " + sku.title;
+  showOnly("examPage");
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const sku = state.currentSku;
+  if (!sku) return;
+
+  const q = sku.questions?.[state.currentQuestion];
+  if (!q) return;
+
+  $("qCounter").textContent = `${state.currentQuestion + 1}/3`;
+  $("progressBar").style.width = `${((state.currentQuestion + 1) / 3) * 100}%`;
+
+  $("questions").innerHTML = `
+    <div class="question">
+      <h3>Soal ${state.currentQuestion + 1}</h3>
+      <p>${escapeHtml(q)}</p>
+      <textarea id="currentAnswer" class="answer"
+        placeholder="Tulis jawaban dengan bahasa sendiri...">${escapeHtml(state.answers[state.currentQuestion])}</textarea>
+    </div>
+  `;
+
+  $("prevBtn").disabled = state.currentQuestion === 0;
+  $("nextBtn").disabled = state.currentQuestion === 2;
+}
+
+function saveCurrentAnswer() {
+  const input = $("currentAnswer");
+  if (input) state.answers[state.currentQuestion] = input.value;
+}
+
+function prevQuestion() {
+  saveCurrentAnswer();
+  if (state.currentQuestion > 0) {
+    state.currentQuestion--;
+    renderQuestion();
+  }
+}
+
+function nextQuestion() {
+  saveCurrentAnswer();
+  if (state.currentQuestion < 2) {
+    state.currentQuestion++;
+    renderQuestion();
+  }
+}
+
+function submitExam() {
+  saveCurrentAnswer();
+
+  if (state.answers.some(a => !a.trim())) {
+    toast("Semua jawaban harus diisi sebelum submit.");
+    return;
+  }
+
+  /*
+   * Koreksi AI asli tidak dapat dipulihkan dari file ini karena fungsi
+   * korektornya tidak ada di dokumen sumber.
+   */
+  toast("Mesin koreksi belum tersedia pada file sumber.");
+}
+
+function retrySku() {
+  if (!state.currentSku) return;
+  state.currentQuestion = 0;
+  state.answers = ["", "", ""];
+  showOnly("examPage");
+  renderQuestion();
+}
+
+function backDashboard() {
+  renderProfile();
+  renderSku();
+  showOnly("dashboardPage");
+}
+
+function logoutDashboard() {
+  localStorage.removeItem(APP_KEY + "_profile");
+  state.profile = null;
+  $("nameInput").value = "";
+  $("classInput").value = "";
+  showOnly("loginPage");
+}
+
+function downloadCertificate() {
+  toast("Fungsi sertifikat akan aktif setelah data penilaian dipulihkan.");
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  $("brandLogo").src =
+    "data:image/svg+xml;charset=UTF-8," +
+    encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+        <rect width="300" height="300" rx="40" fill="#fff"/>
+        <circle cx="150" cy="125" r="70" fill="#a61b1b"/>
+        <text x="150" y="135" text-anchor="middle" font-size="42" font-family="Arial" font-weight="700" fill="#e7b83d">SDP</text>
+        <text x="150" y="220" text-anchor="middle" font-size="22" font-family="Arial" font-weight="700" fill="#7f1111">PRASADAPA</text>
+      </svg>
+    `);
+
+  const saved = localStorage.getItem(APP_KEY + "_profile");
+  if (saved) {
+    try {
+      state.profile = JSON.parse(saved);
+      renderProfile();
+      renderSku();
+      showOnly("dashboardPage");
+      return;
+    } catch (_) {
+      localStorage.removeItem(APP_KEY + "_profile");
+    }
+  }
+
+  showOnly("loginPage");
+});
+</script>
 
 </body>
 </html>
-
-<script>
-Const LOGO_DATA = “data:image/jpeg;base64,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EQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBEUCbICKKXUmpATKHRNQ8VK5wt1Qhk17qU3UrH6iVSqa2Kmae0cGjxKkhMrF2kbqEcvaXsFbdRn7BaSoEMtZEHE23cvYpsUpq2ESUsrJAe9pUFetn3i6EkL5op9RsvpbuFSS1oA7qJVPWAfSp2vuhSRCioXuoqoBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAFAhRUCbICVUXykEiyr69l8sjjr80XKAqaiIg7vUpcXx7dVLUyOZTAmw9KsbPXEqgyZhMtVPUMaYx0LkBduJ4xT4LSvmnkawNF9ytT+P3N7heUaGvhgnjMwjIb5291r3zKc9Jp3VFHQ1N73A0uXPnPWe8X4i4jNUvme4Ek2uqXNIy6sadnpGbM1c7ONVuY2PbUSNjDv1SfEehbk8s/ObT4rSU9PX1IubC5K5Y4fkOoxOmMzmHV1umFY3jeR64GF72Nab7FW/kRNmLbD6P0fZSzVh2ZKOOaCpa5zgDYOCuITOjBL7ae6y428uPOtX4VW09PXVTgwWadTl064TcccG4g4VEDVMMjmjqVWYjhJezK8bmTXcHKZmoHe1l88FNGWa4ZA4HcWVWKYtu16ELr2fS147lMHAr5wbdFO0lVgrXuoqVnRTIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIihgKB2UVI9xGwUbBAy27lI6QkgBux71Np8VK86WG26FHbJJJAzvufBfFUVgpmmR7gwDqSvOxvNlBlyllnq5Wt0i9nFaRcy3OlS4RSVFHhtS1socRdpCobZkQh5Gc+O/MvhWQMOmb5S2SVo6NdZcwuYHnDxDOdRU09HUuZG4kaA691hjijxrxjPmK1Blq5HRucdg8+9WrlzKEuNzh5D3OPiSVj2XeC7Nzj4Dta0jz3Orsy4l29QXzaj0uspZM4cuqXwuLNEZI1AjuV25E4ZxwBjpoxt4hZaocNpKCn7NjGh1rDYLUW5iXo9K4rg9/7ItWkyTRwQGKOEDZY/wA88MxIXuYzffuWcqeLs3XtspMRjhqG2cwG/oWKszZ0OR/HoNdRNJMVwCvy/UmSLVHY9QsxcDuZPFsjVscU1RIWg/tWV8ZuyFHiUTi2Ib99lgfN3DubCpHyRAt37rrb1ZXl7Z5/yPBSq24o688u3NnQ5thpIKioAeWAHU6626wvFKbGads0Dw4EXuF+cLJPEXGcgYjHLDUStDHDbUfeuhPLJzzFzaeixKpF7AeeR71sIS8jgsjFnU+zqEy2rSoyOMZHmXHirC4dcUcNzxQQVFNOx5f4EK/XTEWGm48VkMwVv7KrHgqfUqLfONwpnKCpoqopWnZTIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAhqQbqU9VJrIQFZSl4uR3qn2jvFUybPJJUMhvRWc6ylMgbuVSMjr9Nl8OL4tBhdMaqaVrWN6gkKkoTbZ6L52tic9x0gC/nbLEnFLjvg2RKSUzVIa5oNwCPesScw3ODhmTaGeCkqWiUNI813r9K5c8cuaDGOIWIysiq5AwEjZx3USelsza6JTfRn3mV53JcWlqaXCqmXSbt6keK0hx7MmM52r3zTSvcHuv1K+fC8Jr8xVmqZz5NRvcrM+TOGDWsY6SK/Q7ha63JUDq8DiZ3NNotPIvC52KOZJM0m+5us5ZfyJQYI1hDBcehe3guAwYTSgNYA6y+0QunO+zVo8jIc+keocfxEaknJFWngjZHaIAKjNG/V1F+7dVQ19ONjcLz8QxmnpIZJJHgFgva61brlI62udeOehFJKwWfb6FB7tR6LHknFSnE4brFifFXdgmZaXFYmkPFz6UVMkZazqpHtwS
-
