@@ -224,3 +224,20 @@ loadSaved();
 </script>
 </body>
 </html>
+<script>
+  // Deteksi kalau user keluar dari tab atau pindah aplikasi
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      alert("Kamu terdeteksi keluar dari tab ujian! Sesi kamu direset.");
+      
+      // Mengembalikan user ke halaman awal / login / keluar
+      // Sesuaikan nama fungsi atau aksi keluar websitemu di sini
+      location.reload(); // Ini bakal otomatis refresh web & ngeluarin user
+    }
+  });
+
+  // Opsional: Deteksi kalau kursor keluar dari jendela browser (buat di laptop)
+  window.addEventListener("blur", function() {
+    // Mau dikasih aksi tambahan atau samain kaya di atas juga bisa
+  });
+</script>
