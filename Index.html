@@ -1,501 +1,109 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang=”id”>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PRASADAPA - Pengujian SKU Online</title>
-  <style>
-    :root {
-      --primary: #7f1111;
-      --primary-dark: #520a0a;
-      --gold: #e7b83d;
-      --bg: #fffdf7;
-      --card-bg: #ffffff;
-      --text: #251a15;
-      --muted: #756b63;
-      --border: #ebd3bc;
-      --success: #2e7d32;
-      --danger: #c62828;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
-    body { background-color: var(--bg); color: var(--text); padding: 16px; display: flex; justify-content: center; }
-    .container { width: 100%; max-width: 650px; background: var(--card-bg); border: 2px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-
-    .header { text-align: center; border-bottom: 2px solid var(--border); padding-bottom: 16px; margin-bottom: 20px; }
-    .header img { width: 60px; height: 60px; object-fit: contain; margin-bottom: 8px; }
-    .header h1 { font-size: 20px; color: var(--primary); font-weight: 800; }
-    .header p { font-size: 13px; color: var(--muted); }
-
-    .hidden { display: none !important; }
-    .form-group { margin-bottom: 14px; }
-    label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
-    input, select, textarea { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; background: #fff; }
-    textarea { min-height: 90px; resize: vertical; }
-
-    .btn { display: inline-block; width: 100%; padding: 12px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; text-align: center; font-size: 14px; transition: background 0.2s; }
-    .btn.primary { background: var(--primary); color: #fff; }
-    .btn.primary:hover { background: var(--primary-dark); }
-    .btn.gold { background: var(--gold); color: var(--text); }
-    .btn.outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
-
-    .profile-card { background: #faf4ed; border: 1px solid var(--border); padding: 12px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-    .profile-card h2 { font-size: 16px; color: var(--primary); }
-    .profile-card p { font-size: 12px; color: var(--muted); }
-
-    .sku-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 10px; }
-    .sku { border: 1px solid var(--border); padding: 14px; border-radius: 8px; display: flex; flex-direction: column; justify-content: space-between; background: #fff; }
-    .sku h3 { font-size: 15px; margin-bottom: 4px; }
-    .sku p { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
-    .status { font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 4px; display: inline-block; }
-    .status.new { background: #e0e0e0; color: #424242; }
-    .status.pass { background: #e8f5e9; color: var(--success); }
-    .status.fail { background: #ffebee; color: var(--danger); }
-
-    .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .progress-bar-wrap { width: 100%; height: 6px; background: #eee; border-radius: 3px; margin-bottom: 16px; overflow: hidden; }
-    .progress-bar { height: 100%; background: var(--gold); width: 0%; transition: width 0.3s; }
-
-    .question { margin-bottom: 16px; }
-    .question h3 { font-size: 14px; color: var(--muted); margin-bottom: 6px; }
-    .question p { font-size: 15px; font-weight: 600; margin-bottom: 10px; }
-
-    .resultbox { text-align: center; padding: 20px; border-radius: 8px; margin-bottom: 16px; }
-    .resultbox.pass { background: #e8f5e9; border: 1px solid #c8e6c9; }
-    .resultbox.fail { background: #ffebee; border: 1px solid #ffcdd2; }
-    .score-num { font-size: 42px; font-weight: 900; margin: 8px 0; }
-
-    .eval-list { background: #fafafa; border: 1px solid #eee; padding: 12px; border-radius: 6px; margin-bottom: 16px; font-size: 13px; text-align: left; }
-    .eval-list ul { padding-left: 18px; }
-    .eval-list li { margin-bottom: 6px; }
-
-    #toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 10px 20px; border-radius: 20px; font-size: 13px; z-index: 999; display: none; }
-
-    .cert { border: 4px double var(--primary); padding: 16px; text-align: center; background: #fffdf7; margin-bottom: 16px; border-radius: 6px; }
-    .cert h3 { font-size: 16px; color: var(--primary); }
-    .cert h2 { font-size: 20px; color: var(--text); margin: 8px 0; }
-  </style>
+<meta charset=”UTF-8”>
+<meta name=”viewport” content=”width=device-width, initial-scale=1.0, maximum-scale=1.0”>
+<title>PRASADAPA — Pramuka Satria Dasa Pusaka</title>
+<style>
+:root{--red:#a61b1b;--red2:#7f1111;--gold:#e7b83d;--gold2:#c99518;--cream:#fffaf0;--ink:#251a15;--muted:#756b63;--green:#16733a;--orange:#b86600;--danger:#a61b1b;--white:#fff}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:linear-gradient(135deg,#f7f0e5,#fff 55%,#f3e8d6);color:var(--ink);min-height:100vh}
+Button,input,textarea{font:inherit}button{cursor:pointer}.app{max-width:1100px;margin:auto;padding:18px}
+.hero{background:linear-gradient(135deg,var(--red2),var(--red));color:white;border-radius:24px;padding:20px 22px;box-shadow:0 14px 35px #4b160022;position:relative;overflow:hidden}
+.hero:after{content:””;position:absolute;width:240px;height:240px;border:2px solid #ffffff22;border-radius:50%;right:-70px;top:-90px}.brand{display:flex;align-items:center;gap:16px;position:relative;z-index:1}.logo{width:88px;height:88px;object-fit:contain;background:#fff;border-radius:18px;padding:5px}.brand h1{margin:0;font-size:30px;letter-spacing:2px}.brand h2{margin:2px 0 0;font-size:16px;font-weight:700}.brand p{margin:4px 0 0;color:#ffe7a0;font-size:14px}.card{background:#fff;border:1px solid #eadfce;border-radius:22px;padding:22px;margin-top:18px;box-shadow:0 10px 30px #4b16000e}.section-title{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-bottom:15px}.section-title h2{margin:0}.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:7px 12px;background:#f5ead5;color:var(--red2);font-size:12px;font-weight:800}.profile{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:12px}.field{background:#faf6ef;border:1px solid #eadfce;border-radius:15px;padding:12px}.field small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;font-weight:800}.field strong{display:block;margin-top:3px;font-size:16px}.login-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.input{width:100%;padding:13px;border:1px solid #d9cdbb;border-radius:12px;outline:none;background:#fff}.input:focus{border-color:var(--gold2);box-shadow:0 0 0 3px #e7b83d33}.btn{border:0;border-radius:12px;padding:12px 16px;font-weight:800;background:var(--red);color:#fff;transition:.2s}.btn:hover{transform:translateY(-1px);filter:brightness(1.05)}.btn.gold{background:var(--gold);color:#3b2800}.btn.ghost{background:#f4ede2;color:var(--red2)}.btn.green{background:var(--green)}.btn.danger{background:var(--danger)}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}.sku-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.sku{border:1px solid #e8ddcc;border-radius:18px;padding:17px;background:linear-gradient(180deg,#fff,#fcf7ee);text-align:left;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;transition:.2s}.sku:hover{transform:translateY(-3px);box-shadow:0 10px 25px #3b170012;border-color:#d5b86d}.sku .num{font-size:12px;font-weight:900;color:var(--red)}.sku h3{margin:6px 0;font-size:17px}.sku p{margin:0;color:var(--muted);font-size:12px}.status{margin-top:10px;font-size:12px;font-weight:900}.status.pass{color:var(--green)}.status.fail{color:var(--danger)}.status.new{color:#8b6a1d}.hidden{display:none!important}.exam-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.warning{background:#fff3d7;border:1px solid #e6c56c;color:#704e00;padding:12px 14px;border-radius:14px;font-size:13px;margin:15px 0}.progress{height:9px;background:#eee2d1;border-radius:99px;overflow:hidden;margin:12px 0 18px}.progress>div{height:100%;background:linear-gradient(90deg,var(--red),var(--gold));transition:.2s}.question{border:1px solid #eadfce;border-radius:18px;padding:18px;margin:12px 0;background:#fffdf9}.question h3{margin:0 0 8px;font-size:14px;color:var(--red2)}.question p{margin:0 0 12px;font-weight:650;line-height:1.6}.answer{min-height:140px;resize:vertical;width:100%;padding:13px;border:1px solid #d9cdbb;border-radius:12px}.exam-actions{display:flex;justify-content:space-between;gap:10px;margin-top:16px}.score{font-size:68px;font-weight:950;color:var(--red);line-height:1}.result{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px}.resultbox{border-radius:20px;padding:25px;text-align:center;background:#fff6e5;border:1px solid #ead3a1}.resultbox.pass{background:#edf9f1;border-color:#9bd2ae}.resultbox.fail{background:#fff0f0;border-color:#e2aaaa}.eval{background:#faf6ef;border:1px solid #eadfce;border-radius:18px;padding:18px}.eval li{margin:9px 0}.cert{background:#fffdf7;border:8px double var(--red);padding:30px;text-align:center;position:relative;overflow:hidden}.cert img{width:90px;height:90px;object-fit:contain}.cert h2{color:var(--red2);letter-spacing:2px}.cert .name{font-size:26px;font-weight:950;color:var(--red);margin:15px 0}.cert .line{border-top:1px solid #d4b878;margin:18px 0}.small{font-size:12px;color:var(--muted)}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#251a15;color:white;padding:12px 18px;border-radius:999px;display:none;z-index:99}.footer{text-align:center;color:#8a7d70;font-size:11px;padding:22px}
+@media(max-width:800px){.sku-grid{grid-template-columns:repeat(2,1fr)}.profile,.login-grid,.result{grid-template-columns:1fr}.brand h1{font-size:24px}.logo{width:70px;height:70px}}
+@media(max-width:500px){.app{padding:10px}.hero{border-radius:18px;padding:15px}.sku-grid{grid-template-columns:1fr 1fr;gap:9px}.sku{padding:13px;min-height:145px}.brand{gap:10px}.brand h1{font-size:20px}.brand h2{font-size:13px}.brand p{font-size:11px}.card{padding:15px;border-radius:18px}.score{font-size:55px}}
+</style>
 </head>
 <body>
+<div class=”app”>
+<header class=”hero”>
+ <div class=”brand”>
+  <img class=”logo” id=”brandLogo” alt=”Logo Satria Dasa Pusaka”>
+  <div><h1>PRASADAPA</h1><h2>Pramuka Satria Dasa Pusaka</h2><p>Gudep 01.031–01.032</p></div>
+ </div>
+</header>
 
-<div class="container">
-  <!-- Header -->
-  <div class="header">
-    <img id="brandLogo" src="" alt="Logo PRASADAPA">
-    <h1>PRASADAPA SKU TEST</h1>
-    <p>Pengujian SKU Digital Gudep 01.031–01.032 SMP N 12 Magelang</p>
+<section id=”loginPage” class=”card”>
+ <div class=”section-title”><div><h2>Selamat Datang</h2><span class=”small”>Masukkan identitas untuk membuka dashboard SKU.</span></div><span class=”pill”>PENGGALANG</span></div>
+ <div class=”login-grid”>
+  <div>
+   <label>Nama Lengkap</label><input id=”nameInput” class=”input” placeholder=”Nama lengkap peserta”>
+   <br><br><label>Kelas</label><input id=”classInput” class=”input” placeholder=”Contoh: VII A”>
+   <br><br><label>Tingkat SKU</label>
+   <select id=”levelInput” class=”input”><option value=”RAKIT”>Penggalang Rakit</option><option value=”TERAP”>Penggalang Terap</option></select>
+   <br><br><button class=”btn” onclick=”enterDashboard()”>Masuk ke Dashboard</button>
   </div>
+  <div class=”field”>
+   <strong>Aturan Uji SKU</strong>
+   <p class=”small”>Setiap SKU berisi 3 soal uraian. Nilai 80–100 dinyatakan LULUS. Nilai 0–79 harus mengulang.</p>
+   <p class=”small”>Saat ujian berlangsung, peserta tidak dapat berpindah ke dashboard. Jika halaman ditinggalkan atau dimuat ulang, ujian dianggap harus diulang.</p>
+  </div>
+ </div>
+</section>
 
-  <!-- Form Netlify Tersembunyi (Integrasi Netlify) -->
-  <form name="sku-lulus" netlify netlify-honeypot="bot-field" hidden>
-    <input type="text" name="nama" />
-    <input type="text" name="kelas" />
-    <input type="number" name="nilai" />
+<section id=”dashboardPage” class=”hidden”>
+ <div class=”card”>
+  <div class=”section-title”><div><h2>Profil Peserta</h2><span class=”small”>Data yang digunakan pada hasil dan sertifikat.</span></div><button class=”btn ghost” onclick=”logoutDashboard()”>Keluar</button></div>
+  <div class=”profile”>
+   <div class=”field”><small>Nama</small><strong id=”profileName”>-</strong></div>
+   <div class=”field”><small>Kelas</small><strong id=”profileClass”>-</strong></div>
+   <div class=”field”><small>Tingkat</small><strong id=”profileLevel”>-</strong></div>
+  </div>
+ </div>
+ <div class=”card”>
+  <div class=”section-title”><div><h2>Daftar SKU</h2><span class=”small”>Pilih nomor SKU untuk mengerjakan 3 soal uraian.</span></div><span class=”pill” id=”skuCount”>0 SKU</span></div>
+  <div id=”skuGrid” class=”sku-grid”></div>
+ </div>
+</section>
+
+<section id=”examPage” class=”hidden card”>
+ <div class=”exam-head”><div><span class=”pill” id=”examLevel”>-</span><h2 id=”examTitle” style=”margin:8px 0 0”>-</h2></div><span class=”pill” id=”qCounter”>1/3</span></div>
+ <div class=”warning”><b>Mode ujian aktif.</b> Selesaikan dan kirim jawaban sebelum meninggalkan halaman. Jika halaman di-refresh/ditinggalkan saat ujian, percobaan ini akan dianggap harus diulang.</div>
+ <div class=”progress”><div id=”progressBar” style=”width:33%”></div></div>
+ <div id=”questions”></div>
+ <div class=”exam-actions”><button class=”btn ghost” id=”prevBtn” onclick=”prevQuestion()”>Sebelumnya</button><button class=”btn” id=”nextBtn” onclick=”nextQuestion()”>Berikutnya</button></div>
+ <div style=”margin-top:14px;text-align:right”><button class=”btn green” id=”submitBtn” onclick=”submitExam()”>Submit Jawaban & Nilai</button></div>
+</section>
+
+<section id=”resultPage” class=”hidden card”>
+ <div class=”section-title”><div><h2 id=”resultSku”>Hasil SKU</h2><span class=”small”>Hasil tersimpan di perangkat ini.</span></div><button class=”btn ghost” onclick=”backDashboard()”>Kembali ke Dashboard</button></div>
+ <div class=”result”>
+  <div id=”resultBox” class=”resultbox”>
+   <div class=”small”>NILAI AKHIR</div><div class=”score” id=”score”>0</div><h2 id=”resultStatus”>-</h2><p id=”resultDesc”>-</p>
+  </div>
+  <div class=”eval”><h3>Evaluasi</h3><p class=”small”>Bagian yang masih kurang berdasarkan kriteria jawaban yang digunakan untuk penilaian otomatis:</p><ul id=”evalList”></ul></div>
+ </div>
+ <div id=”certWrap” class=”hidden” style=”margin-top:18px”>
+  <div id=”certificate” class=”cert”>
+   <img id=”certLogo” alt=”Logo”>
+   <h2>SERTIFIKAT KELULUSAN SKU</h2><div>PRAMUKA SATRIA DASA PUSAKA</div><div>GUDEP 01.031–01.032</div>
+   <div class=”line”></div><div>Diberikan kepada</div><div class=”name” id=”certName”>-</div>
+   <div>Kelas <b id=”certClass”>-</b></div>
+   <p>Dinyatakan <b>LULUS</b> pada Pengujian Syarat Kecakapan Umum (SKU)</p>
+   <h3 id=”certLevel”>-</h3><p>SKU No. <b id=”certSku”>-</b></p>
+   <div class=”line”></div><div>Nilai: <b id=”certScore”>-</b></div><p class=”small”>Sertifikat dibuat secara digital melalui aplikasi PRASADAPA.</p>
+  </div>
+  <br><button class=”btn gold” style=”width:100%” onclick=”downloadCertificate()”>⬇ Unduh Sertifikat (PNG)</button>
+ </div>
+ <div id=”retryWrap” class=”hidden” style=”margin-top:18px”><button class=”btn danger” style=”width:100%” onclick=”retrySku()”>Ulangi SKU Ini</button></div>
+</section>
+<div class=”footer”>PRASADAPA • Pramuka Satria Dasa Pusaka • Gudep 01.031–01.032</div>
+</div>
+<div id=”toast” class=”toast”></div>
+  …
+  <!—Kodingan tampilan web kamu yang lama di sini 
+  …
+
+  <!—TARUH FORM NETLIFY DI SINI 
+  <form name=”sku-lulus” netlify netlify-honeypot=”bot-field” hidden>
+    <input type=”text” name=”nama” />
+    <input type=”text” name=”kelas” />
+    <input type=”number” name=”nilai” />
   </form>
 
-  <!-- 1. Halaman Login -->
-  <div id="loginPage">
-    <div class="form-group">
-      <label>Nama Lengkap Peserta</label>
-      <input type="text" id="nameInput" placeholder="Contoh: Mustofa Ariyanto">
-    </div>
-    <div class="form-group">
-      <label>Kelas</label>
-      <input type="text" id="classInput" placeholder="Contoh: 9A">
-    </div>
-    <div class="form-group">
-      <label>Tingkatan Penggalang</label>
-      <select id="levelInput">
-        <option value="RAKIT">Penggalang RAKIT</option>
-        <option value="TERAP">Penggalang TERAP</option>
-      </select>
-    </div>
-    <button class="btn primary" onclick="enterDashboard()">Masuk Portal Ujian</button>
-  </div>
-
-  <!-- 2. Dashboard SKU -->
-  <div id="dashboardPage" class="hidden">
-    <div class="profile-card">
-      <div>
-        <h2 id="profileName">-</h2>
-        <p><span id="profileClass">-</span> | <strong id="profileLevel">-</strong></p>
-      </div>
-      <button class="btn outline" style="width:auto; padding:6px 12px; font-size:12px;" onclick="logoutDashboard()">Keluar</button>
-    </div>
-
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-      <h3>Daftar Materi SKU</h3>
-      <span id="skuCount" style="font-size:12px; color:var(--muted);">0 SKU</span>
-    </div>
-
-    <div class="sku-grid" id="skuGrid"></div>
-  </div>
-
-  <!-- 3. Halaman Ujian -->
-  <div id="examPage" class="hidden">
-    <div class="q-header">
-      <span id="examLevel" style="font-size:12px; font-weight:700; color:var(--primary);">PENGGALANG</span>
-      <span id="qCounter" style="font-size:12px; color:var(--muted);">1/3</span>
-    </div>
-    <div class="progress-bar-wrap">
-      <div class="progress-bar" id="progressBar"></div>
-    </div>
-
-    <h2 id="examTitle" style="font-size:16px; margin-bottom:14px;">-</h2>
-
-    <div id="questions"></div>
-
-    <div style="display:flex; gap:10px; margin-top:16px;">
-      <button class="btn outline" id="prevBtn" onclick="prevQuestion()" style="flex:1;">Kembali</button>
-      <button class="btn primary" id="nextBtn" onclick="nextQuestion()" style="flex:1;">Lanjut</button>
-      <button class="btn gold" id="submitBtn" onclick="submitExam()" style="flex:1; display:none;">Kirim Jawaban</button>
-    </div>
-  </div>
-
-  <!-- 4. Halaman Hasil -->
-  <div id="resultPage" class="hidden">
-    <div id="resultBox" class="resultbox">
-      <h3 id="resultSku">Hasil SKU</h3>
-      <div class="score-num" id="score">0</div>
-      <h2 id="resultStatus" style="margin-bottom:6px;">-</h2>
-      <p id="resultDesc" style="font-size:13px; color:var(--muted);">-</p>
-    </div>
-
-    <div class="eval-list">
-      <strong style="display:block; margin-bottom:6px; color:var(--primary);">🤖 Analisis & Evaluation AI:</strong>
-      <ul id="evalList"></ul>
-    </div>
-
-    <!-- Sertifikat ringkas -->
-    <div id="certWrap" class="hidden">
-      <div class="cert">
-        <img id="certLogo" src="" style="width:40px; height:40px; margin-bottom:4px;" alt="Logo">
-        <h3>SERTIFIKAT KELULUSAN SKU</h3>
-        <p style="font-size:11px; color:var(--muted);">Gudep 01.031–01.032 SMP N 12 Magelang</p>
-        <h2 id="certName">-</h2>
-        <p style="font-size:13px;">Kelas: <span id="certClass">-</span></p>
-        <p style="font-size:13px; margin-top:6px;">Lulus Ujian SKU <strong id="certLevel">-</strong> (SKU No. <span id="certSku">-</span>) dengan Nilai Akhir <strong id="certScore">-</strong></p>
-      </div>
-      <button class="btn gold" onclick="downloadCertificate()" style="margin-bottom:10px;">Unduh Sertifikat (PNG)</button>
-    </div>
-
-    <div id="retryWrap" class="hidden">
-      <button class="btn primary" onclick="retrySku()" style="margin-bottom:10px;">Coba Ulangi Ujian</button>
-    </div>
-
-    <button class="btn outline" onclick="backDashboard()">Kembali ke Dashboard</button>
-  </div>
-</div>
-
-<div id="toast"></div>
+</body>
+</html>
 
 <script>
-// ==========================================
-// 1. DATA LOGO & BANK SOAL
-// ==========================================
-const LOGO_DATA = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%237f1111'/><text x='50' y='58' font-size='35' text-anchor='middle' fill='%23e7b83d' font-weight='bold'>⚜</text></svg>";
+Const LOGO_DATA = “data:image/jpeg;base64,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EQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBEUCbICKKXUmpATKHRNQ8VK5wt1Qhk17qU3UrH6iVSqa2Kmae0cGjxKkhMrF2kbqEcvaXsFbdRn7BaSoEMtZEHE23cvYpsUpq2ESUsrJAe9pUFetn3i6EkL5op9RsvpbuFSS1oA7qJVPWAfSp2vuhSRCioXuoqoBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAFAhRUCbICVUXykEiyr69l8sjjr80XKAqaiIg7vUpcXx7dVLUyOZTAmw9KsbPXEqgyZhMtVPUMaYx0LkBduJ4xT4LSvmnkawNF9ytT+P3N7heUaGvhgnjMwjIb5291r3zKc9Jp3VFHQ1N73A0uXPnPWe8X4i4jNUvme4Ek2uqXNIy6sadnpGbM1c7ONVuY2PbUSNjDv1SfEehbk8s/ObT4rSU9PX1IubC5K5Y4fkOoxOmMzmHV1umFY3jeR64GF72Nab7FW/kRNmLbD6P0fZSzVh2ZKOOaCpa5zgDYOCuITOjBL7ae6y428uPOtX4VW09PXVTgwWadTl064TcccG4g4VEDVMMjmjqVWYjhJezK8bmTXcHKZmoHe1l88FNGWa4ZA4HcWVWKYtu16ELr2fS147lMHAr5wbdFO0lVgrXuoqVnRTIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIihgKB2UVI9xGwUbBAy27lI6QkgBux71Np8VK86WG26FHbJJJAzvufBfFUVgpmmR7gwDqSvOxvNlBlyllnq5Wt0i9nFaRcy3OlS4RSVFHhtS1socRdpCobZkQh5Gc+O/MvhWQMOmb5S2SVo6NdZcwuYHnDxDOdRU09HUuZG4kaA691hjijxrxjPmK1Blq5HRucdg8+9WrlzKEuNzh5D3OPiSVj2XeC7Nzj4Dta0jz3Orsy4l29QXzaj0uspZM4cuqXwuLNEZI1AjuV25E4ZxwBjpoxt4hZaocNpKCn7NjGh1rDYLUW5iXo9K4rg9/7ItWkyTRwQGKOEDZY/wA88MxIXuYzffuWcqeLs3XtspMRjhqG2cwG/oWKszZ0OR/HoNdRNJMVwCvy/UmSLVHY9QsxcDuZPFsjVscU1RIWg/tWV8ZuyFHiUTi2Ib99lgfN3DubCpHyRAt37rrb1ZXl7Z5/yPBSq24o688u3NnQ5thpIKioAeWAHU6626wvFKbGads0Dw4EXuF+cLJPEXGcgYjHLDUStDHDbUfeuhPLJzzFzaeixKpF7AeeR71sIS8jgsjFnU+zqEy2rSoyOMZHmXHirC4dcUcNzxQQVFNOx5f4EK/XTEWGm48VkMwVv7KrHgqfUqLfONwpnKCpoqopWnZTIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAhqQbqU9VJrIQFZSl4uR3qn2jvFUybPJJUMhvRWc6ylMgbuVSMjr9Nl8OL4tBhdMaqaVrWN6gkKkoTbZ6L52tic9x0gC/nbLEnFLjvg2RKSUzVIa5oNwCPesScw3ODhmTaGeCkqWiUNI813r9K5c8cuaDGOIWIysiq5AwEjZx3USelsza6JTfRn3mV53JcWlqaXCqmXSbt6keK0hx7MmM52r3zTSvcHuv1K+fC8Jr8xVmqZz5NRvcrM+TOGDWsY6SK/Q7ha63JUDq8DiZ3NNotPIvC52KOZJM0m+5us5ZfyJQYI1hDBcehe3guAwYTSgNYA6y+0QunO+zVo8jIc+keocfxEaknJFWngjZHaIAKjNG/V1F+7dVQ19ONjcLz8QxmnpIZJJHgFgva61brlI62udeOehFJKwWfb6FB7tR6LHknFSnE4brFifFXdgmZaXFYmkPFz6UVMkZazqpHtwS
 
-const BANK_SOAL = {
-  RAKIT: [
-    { id: 1, title: "SKU No. 1 - Dasa Darma & Tri Satya", questions: [
-      { q: "Sebutkan isi Dasa Darma Pramuka ke-1 sampai ke-5 secara berurutan!", keywords: ["taqwa", "cinta alam", "patriot", "patuh", "rela"] },
-      { q: "Jelaskan penerapannya dalam kehidupan sehari-hari di lingkungan sekolah!", keywords: ["menghormati", "teman", "disiplin", "bersih", "belajar"] },
-      { q: "Sebutkan 3 janji yang terdapat dalam Tri Satya Penggalang!", keywords: ["tuhan", "negara", "pancasila", "menolong", "dasa darma"] }
-    ]},
-    { id: 2, title: "SKU No. 2 - Sejarah & Struktur Kepramukaan", questions: [
-      { q: "Siapakah Bapak Pandu Dunia dan kapan beliau dilahirkan?", keywords: ["baden powell", "22 februari"] },
-      { q: "Sebutkan urutan tingkatan dalam Pasukan Penggalang!", keywords: ["ramu", "rakit", "terap", "garuda"] },
-      { q: "Apa nama Gudep Pramuka SMP N 12 Magelang?", keywords: ["01.031", "01.032", "prasadapa"] }
-    ]}
-  ],
-  TERAP: [
-    { id: 1, title: "SKU No. 1 - Navigasi Darat & Peta Tapak", questions: [
-      { q: "Jelaskan fungsi Kompas, Peta Pita, dan Peta Tapak Kembara dalam kegiatan Wide Game!", keywords: ["arah", "utara", "perjalanan", "skala", "lokasi"] },
-      { q: "Sebutkan 16 arah mata angin utama beserta sudut derajatnya!", keywords: ["utara", "timur", "selatan", "barat", "0", "90", "180", "270"] },
-      { q: "Bagaimana cara menentukan arah utara tanpa menggunakan kompas saat malam hari?", keywords: ["bintang", "pari", "orion", "bulan"] }
-    ]}
-  ]
-};
-
-// State
-let currentUser = { name: "", class: "", level: "RAKIT" };
-let currentExam = { level: "", skuId: null, questions: [], answers: ["", "", ""], currentIndex: 0 };
-
-document.getElementById('brandLogo').src = LOGO_DATA;
-document.getElementById('certLogo').src = LOGO_DATA;
-
-function showToast(msg) {
-  const toast = document.getElementById('toast');
-  toast.innerText = msg;
-  toast.style.display = 'block';
-  setTimeout(() => { toast.style.display = 'none'; }, 3500);
-}
-
-// ==========================================
-// 2. KOREKSI OTOMATIS DENGAN GEMINI AI API
-// ==========================================
-// ⚠️ GANTI STRING DI BAWAH INI DENGAN API KEY GEMINI KAMU
-const GEMINI_API_KEY = "";
-
-async function koreksiJawabanDenganAI(soal, jawabanSiswa, kunciKriteria) {
-  // Jika API Key belum diisi, gunakan penilaian dasar berbasis kata kunci
-  if (GEMINI_API_KEY === "" || !GEMINI_API_KEY) {
-    let score = 0;
-    const userAns = jawabanSiswa.toLowerCase();
-    kunciKriteria.split(", ").forEach(kw => {
-      if (userAns.includes(kw.toLowerCase())) score += 20;
-    });
-    score = Math.min(100, Math.max(50, score));
-    return {
-      skor: score,
-      evaluasi: score >= 80 ? "Jawaban sudah mencakup sebagian besar kata kunci." : "Jawaban kurang lengkap. Lengkapi penjelasan dengan poin-poin penting."
-    };
-  }
-
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-
-  const prompt = `
-Kamu adalah Penguji SKU Pramuka SMP yang bijak. Tugasmu menilai jawaban uraian siswa.
-
-[SOAL]: ${soal}
-[KUNCI/KATA KUNCI]: ${kunciKriteria}
-[JAWABAN SISWA]: ${jawabanSiswa}
-
-Berikan respon JSON murni TANPA format markdown (\`\`\`json ...) dengan struktur:
-{
-  "skor": <angka 0 sampai 100>,
-  "evaluasi": "<1 kalimat evaluasi singkat tentang jawaban siswa>"
-}
-`;
-
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }]
-      })
-    });
-
-    const data = await response.json();
-    const rawText = data.candidates[0].content.parts[0].text;
-    const cleanJson = rawText.replace(/```json|```/g, "").trim();
-    return JSON.parse(cleanJson);
-  } catch (err) {
-    console.error("AI Error:", err);
-    return { skor: 75, evaluasi: "Jawaban cukup baik, namun sistem gagal melakukan analisis mendalam." };
-  }
-}
-
-// ==========================================
-// 3. NAVIGASI DAN LOGIKA UJIAN
-// ==========================================
-function showSection(id) {
-  ['loginPage', 'dashboardPage', 'examPage', 'resultPage'].forEach(s => {
-    document.getElementById(s).classList.add('hidden');
-  });
-  document.getElementById(id).classList.remove('hidden');
-}
-
-function enterDashboard() {
-  const name = document.getElementById('nameInput').value.trim();
-  const cls = document.getElementById('classInput').value.trim();
-  const lvl = document.getElementById('levelInput').value;
-
-  if (!name || !cls) {
-    showToast("Isi Nama dan Kelas terlebih dahulu!");
-    return;
-  }
-
-  currentUser = { name, class: cls, level: lvl };
-  document.getElementById('profileName').innerText = currentUser.name;
-  document.getElementById('profileClass').innerText = currentUser.class;
-  document.getElementById('profileLevel').innerText = "Penggalang " + currentUser.level;
-
-  renderSkuGrid();
-  showSection('dashboardPage');
-}
-
-function logoutDashboard() {
-  showSection('loginPage');
-}
-
-function renderSkuGrid() {
-  const grid = document.getElementById('skuGrid');
-  grid.innerHTML = "";
-  const list = BANK_SOAL[currentUser.level] || [];
-  
-  document.getElementById('skuCount').innerText = `${list.length} SKU Tersedia`;
-
-  list.forEach((sku, idx) => {
-    const savedResult = JSON.parse(localStorage.getItem(`PRASADAPA_${currentUser.name}_${currentUser.level}_SKU${sku.id}`));
-    let statusHtml = `<div class="status new">BELUM DIUJI</div>`;
-    
-    if(savedResult) {
-      statusHtml = savedResult.score >= 80 
-        ? `<div class="status pass">LULUS (${savedResult.score})</div>`
-        : `<div class="status fail">MENGULANG (${savedResult.score})</div>`;
-    }
-
-    const card = document.createElement('div');
-    card.className = 'sku';
-    card.innerHTML = `
-      <div>
-        <h3>${sku.title}</h3>
-        <p>3 Soal Uraian Pemahaman</p>
-      </div>
-      <div>
-        ${statusHtml}
-        <button class="btn gold" style="margin-top:8px;" onclick="startExam('${currentUser.level}', ${sku.id})">
-          ${savedResult && savedResult.score >= 80 ? 'Ulangi Ujian' : 'Mulai Ujian'}
-        </button>
-      </div>
-    `;
-    grid.appendChild(card);
-  });
-}
-
-function startExam(level, skuId) {
-  const skuData = BANK_SOAL[level].find(s => s.id === skuId);
-  if (!skuData) return;
-
-  currentExam = {
-    level: level,
-    skuId: skuId,
-    title: skuData.title,
-    questions: skuData.questions,
-    answers: ["", "", ""],
-    currentIndex: 0
-  };
-
-  document.getElementById('examLevel').innerText = "PENGGALANG " + level;
-  document.getElementById('examTitle').innerText = skuData.title;
-
-  renderQuestion();
-  showSection('examPage');
-}
-
-function renderQuestion() {
-  const qContainer = document.getElementById('questions');
-  const idx = currentExam.currentIndex;
-  const qData = currentExam.questions[idx];
-
-  document.getElementById('qCounter').innerText = `${idx + 1}/3`;
-  document.getElementById('progressBar').style.width = `${((idx + 1) / 3) * 100}%`;
-
-  qContainer.innerHTML = `
-    <div class="question">
-      <h3>Soal No. ${idx + 1} dari 3</h3>
-      <p>${qData.q}</p>
-      <textarea id="currentAnswerInput" placeholder="Tuliskan jawaban lengkapmu di sini..." oninput="saveCurrentAnswer()">${currentExam.answers[idx] || ''}</textarea>
-    </div>
-  `;
-
-  document.getElementById('prevBtn').disabled = (idx === 0);
-  document.getElementById('nextBtn').style.display = (idx === 2) ? 'none' : 'inline-block';
-  document.getElementById('submitBtn').style.display = (idx === 2) ? 'inline-block' : 'none';
-}
-
-function saveCurrentAnswer() {
-  const input = document.getElementById('currentAnswerInput');
-  if(input) currentExam.answers[currentExam.currentIndex] = input.value;
-}
-
-function nextQuestion() {
-  saveCurrentAnswer();
-  if (currentExam.currentIndex < 2) {
-    currentExam.currentIndex++;
-    renderQuestion();
-  }
-}
-
-function prevQuestion() {
-  saveCurrentAnswer();
-  if (currentExam.currentIndex > 0) {
-    currentExam.currentIndex--;
-    renderQuestion();
-  }
-}
-
-// SUBMIT & KOREKSI DENGAN AI
-async function submitExam() {
-  saveCurrentAnswer();
-
-  for (let i = 0; i < 3; i++) {
-    if (!currentExam.answers[i].trim()) {
-      showToast(`Isi jawaban untuk Soal No. ${i + 1} dulu!`);
-      currentExam.currentIndex = i;
-      renderQuestion();
-      return;
-    }
-  }
-
-  showToast("🤖 AI sedang mengoreksi jawabanmu...");
-
-  let totalScore = 0;
-  let evalItems = [];
-
-  for (let i = 0; i < 3; i++) {
-    const qData = currentExam.questions[i];
-    const userAns = currentExam.answers[i];
-    const kunci = qData.keywords.join(", ");
-
-    const hasilAI = await koreksiJawabanDenganAI(qData.q, userAns, kunci);
-    
-    totalScore += hasilAI.skor;
-    evalItems.push(`<b>Soal ${i + 1} (Skor ${hasilAI.skor}):</b> ${hasilAI.evaluasi}`);
-  }
-
-  const finalScore = Math.round(totalScore / 3);
-  const isPassed = finalScore >= 80;
-
-  const resultData = {
-    name: currentUser.name,
-    class: currentUser.class,
-    level: currentUser.level,
-    skuId: currentExam.skuId,
-    score: finalScore,
-    passed: isPassed,
-    date: new Date().toLocaleDateString('id-ID')
-  };
-
-  localStorage.setItem(`PRASADAPA_${currentUser.name}_${currentUser.level}_SKU${currentExam.skuId}`, JSON.stringify(resultData));
-  
-  displayResult(resultData, evalItems);
-
-  if (isPassed) {
-    sendDataToNetlify(currentUser.name, currentUser.class, finalScore);
-  }
-}
-
-function sendDataToNetlify(nama, kelas, nilai) {
-  const formData = new FormData();
-  formData.append("form-name", "sku-lulus");
-  formData.append("nama", nama);
-  formData.append("kelas", kelas);
-  formData.append("nilai", nilai);
-
-  fetch("/", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams(formData).toString()
-  }).catch(e => console.error(e));
-}
-
-function displayResult(res, evalItems) {
-  document.getElementById('resultSku').innerText = `Hasil SKU #${res.skuId}`;
-  document.getElementById('score').innerText = res.score;
-
-  const resultBox = document.getElementById('resultBox');
-  const resultStatus = document.getElementById('resultStatus');
-  const resultDesc = document.getElementById('resultDesc');
-  const evalList = document.getElementById('evalList');
-  const certWrap = document.getElementById('certWrap');
-  const retryWrap = document.getElementById('retryWrap');
-
-  evalList.innerHTML = "";
-
-  if (res.passed) {
-    resultBox.className = "resultbox pass";
-    resultStatus.innerText = "LULUS";
- 
